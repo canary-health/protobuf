@@ -1,0 +1,21 @@
+{
+  "Tools": [
+    {
+      "Repository": "github.com/gogo/protobuf/proto",
+      "Commit": "58efb20abbaed6e5c074d1342c2c329fbc6a3d02"
+    },
+    {
+      "Repository": "github.com/gogo/protobuf/protoc-gen-gogofaster",
+      "Commit": "58efb20abbaed6e5c074d1342c2c329fbc6a3d02"
+    },
+    {
+      "Repository": "github.com/gogo/protobuf/gogoproto",
+      "Commit": "58efb20abbaed6e5c074d1342c2c329fbc6a3d02"
+    },
+    {
+      "Repository": "github.com/gogo/protobuf/jsonpb",
+      "Commit": "58efb20abbaed6e5c074d1342c2c329fbc6a3d02"
+    }
+  ],
+  "RetoolVersion": "1.3.5"
+}

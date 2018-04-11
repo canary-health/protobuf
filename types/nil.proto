@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package canaryhealth.protobuf;
+option go_package = "types";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// Enable custom Marshal method.
+option (gogoproto.marshaler_all) = true;
+// Enable custom Unmarshal method.
+option (gogoproto.unmarshaler_all) = true;
+// Enable custom Size method (Required by Marshal and Unmarshal).
+option (gogoproto.sizer_all) = true;
+
+// A generic empty message that you can re-use to avoid defining duplicated
+// empty messages in your APIs. A typical example is to use it as the request
+// or the response type of an API method. For instance:
+//
+//     service Foo {
+//       rpc Bar(canaryhealth.protobuf.Nil) returns (canaryhealth.protobuf.Nil);
+//     }
+//
+// The JSON representation for `Nil` is empty JSON object `{}`.
+
+message Nil {}

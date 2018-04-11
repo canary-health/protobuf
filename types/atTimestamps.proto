@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package canaryhealth.protobuf;
+option go_package = "types";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+import "google/protobuf/timestamp.proto";
+// Enable custom Marshal method.
+option (gogoproto.marshaler_all) = true;
+// Enable custom Unmarshal method.
+option (gogoproto.unmarshaler_all) = true;
+// Enable custom Size method (Required by Marshal and Unmarshal).
+option (gogoproto.sizer_all) = true;
+
+// A generic empty message that you can re-use to avoid defining duplicated
+// empty messages in your APIs. A typical example is to use it as the request
+// or the response type of an API method. For instance:
+//
+//     service Foo {
+//       rpc Bar(canaryhealth.protobuf.Nil) returns (canaryhealth.protobuf.Nil);
+//     }
+//
+// The JSON representation for `Nil` is empty JSON object `{}`.
+message CreatedAt {
+  google.protobuf.Timestamp created_at = 1 [(gogoproto.moretags) = "db:\"created_at\"", (gogoproto.stdtime) = true];
+}
+
+message UpdatedAt {
+  google.protobuf.Timestamp updated_at = 1 [(gogoproto.moretags) = "db:\"updated_at\"", (gogoproto.stdtime) = true];
+}
+
+message ArchivedAt {
+  google.protobuf.Timestamp archived_at = 1 [(gogoproto.moretags) = "db:\"archived_at\"", (gogoproto.stdtime) = true];
+}
+
+message DeletedAt {
+  google.protobuf.Timestamp deleted_at = 1 [(gogoproto.moretags) = "db:\"deleted_at\"", (gogoproto.stdtime) = true];
+}
