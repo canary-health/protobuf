@@ -18,6 +18,7 @@
 		UpdatedAt
 		ArchivedAt
 		DeletedAt
+		Timestamps
 */
 package types
 

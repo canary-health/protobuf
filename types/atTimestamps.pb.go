@@ -21,15 +21,8 @@ var _ = fmt.Errorf
 var _ = math.Inf
 var _ = time.Kitchen
 
-// A generic empty message that you can re-use to avoid defining duplicated
-// empty messages in your APIs. A typical example is to use it as the request
-// or the response type of an API method. For instance:
+// A set of common database timestamps
 //
-//     service Foo {
-//       rpc Bar(canaryhealth.protobuf.Nil) returns (canaryhealth.protobuf.Nil);
-//     }
-//
-// The JSON representation for `Nil` is empty JSON object `{}`.
 type CreatedAt struct {
 	CreatedAt *time.Time `protobuf:"bytes,1,opt,name=created_at,json=createdAt,stdtime" json:"created_at,omitempty" db:"created_at"`
 }
@@ -94,11 +87,52 @@ func (m *DeletedAt) GetDeletedAt() *time.Time {
 	return nil
 }
 
+type Timestamps struct {
+	CreatedAt  *time.Time `protobuf:"bytes,1,opt,name=created_at,json=createdAt,stdtime" json:"created_at,omitempty" db:"created_at"`
+	UpdatedAt  *time.Time `protobuf:"bytes,2,opt,name=updated_at,json=updatedAt,stdtime" json:"updated_at,omitempty" db:"updated_at"`
+	ArchivedAt *time.Time `protobuf:"bytes,3,opt,name=archived_at,json=archivedAt,stdtime" json:"archived_at,omitempty" db:"archived_at"`
+	DeletedAt  *time.Time `protobuf:"bytes,4,opt,name=deleted_at,json=deletedAt,stdtime" json:"deleted_at,omitempty" db:"deleted_at"`
+}
+
+func (m *Timestamps) Reset()                    { *m = Timestamps{} }
+func (m *Timestamps) String() string            { return proto.CompactTextString(m) }
+func (*Timestamps) ProtoMessage()               {}
+func (*Timestamps) Descriptor() ([]byte, []int) { return fileDescriptorAtTimestamps, []int{4} }
+
+func (m *Timestamps) GetCreatedAt() *time.Time {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return nil
+}
+
+func (m *Timestamps) GetUpdatedAt() *time.Time {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return nil
+}
+
+func (m *Timestamps) GetArchivedAt() *time.Time {
+	if m != nil {
+		return m.ArchivedAt
+	}
+	return nil
+}
+
+func (m *Timestamps) GetDeletedAt() *time.Time {
+	if m != nil {
+		return m.DeletedAt
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*CreatedAt)(nil), "canaryhealth.protobuf.CreatedAt")
 	proto.RegisterType((*UpdatedAt)(nil), "canaryhealth.protobuf.UpdatedAt")
 	proto.RegisterType((*ArchivedAt)(nil), "canaryhealth.protobuf.ArchivedAt")
 	proto.RegisterType((*DeletedAt)(nil), "canaryhealth.protobuf.DeletedAt")
+	proto.RegisterType((*Timestamps)(nil), "canaryhealth.protobuf.Timestamps")
 }
 func (m *CreatedAt) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
@@ -212,6 +246,64 @@ func (m *DeletedAt) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
+func (m *Timestamps) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Timestamps) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.CreatedAt != nil {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintAtTimestamps(dAtA, i, uint64(types1.SizeOfStdTime(*m.CreatedAt)))
+		n5, err := types1.StdTimeMarshalTo(*m.CreatedAt, dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n5
+	}
+	if m.UpdatedAt != nil {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintAtTimestamps(dAtA, i, uint64(types1.SizeOfStdTime(*m.UpdatedAt)))
+		n6, err := types1.StdTimeMarshalTo(*m.UpdatedAt, dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n6
+	}
+	if m.ArchivedAt != nil {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintAtTimestamps(dAtA, i, uint64(types1.SizeOfStdTime(*m.ArchivedAt)))
+		n7, err := types1.StdTimeMarshalTo(*m.ArchivedAt, dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n7
+	}
+	if m.DeletedAt != nil {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintAtTimestamps(dAtA, i, uint64(types1.SizeOfStdTime(*m.DeletedAt)))
+		n8, err := types1.StdTimeMarshalTo(*m.DeletedAt, dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n8
+	}
+	return i, nil
+}
+
 func encodeVarintAtTimestamps(dAtA []byte, offset int, v uint64) int {
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
@@ -254,6 +346,28 @@ func (m *ArchivedAt) Size() (n int) {
 func (m *DeletedAt) Size() (n int) {
 	var l int
 	_ = l
+	if m.DeletedAt != nil {
+		l = types1.SizeOfStdTime(*m.DeletedAt)
+		n += 1 + l + sovAtTimestamps(uint64(l))
+	}
+	return n
+}
+
+func (m *Timestamps) Size() (n int) {
+	var l int
+	_ = l
+	if m.CreatedAt != nil {
+		l = types1.SizeOfStdTime(*m.CreatedAt)
+		n += 1 + l + sovAtTimestamps(uint64(l))
+	}
+	if m.UpdatedAt != nil {
+		l = types1.SizeOfStdTime(*m.UpdatedAt)
+		n += 1 + l + sovAtTimestamps(uint64(l))
+	}
+	if m.ArchivedAt != nil {
+		l = types1.SizeOfStdTime(*m.ArchivedAt)
+		n += 1 + l + sovAtTimestamps(uint64(l))
+	}
 	if m.DeletedAt != nil {
 		l = types1.SizeOfStdTime(*m.DeletedAt)
 		n += 1 + l + sovAtTimestamps(uint64(l))
@@ -606,6 +720,188 @@ func (m *DeletedAt) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *Timestamps) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAtTimestamps
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Timestamps: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Timestamps: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAtTimestamps
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAtTimestamps
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.CreatedAt == nil {
+				m.CreatedAt = new(time.Time)
+			}
+			if err := types1.StdTimeUnmarshal(m.CreatedAt, dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedAt", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAtTimestamps
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAtTimestamps
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.UpdatedAt == nil {
+				m.UpdatedAt = new(time.Time)
+			}
+			if err := types1.StdTimeUnmarshal(m.UpdatedAt, dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ArchivedAt", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAtTimestamps
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAtTimestamps
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ArchivedAt == nil {
+				m.ArchivedAt = new(time.Time)
+			}
+			if err := types1.StdTimeUnmarshal(m.ArchivedAt, dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DeletedAt", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAtTimestamps
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAtTimestamps
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.DeletedAt == nil {
+				m.DeletedAt = new(time.Time)
+			}
+			if err := types1.StdTimeUnmarshal(m.DeletedAt, dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAtTimestamps(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAtTimestamps
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func skipAtTimestamps(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0
@@ -714,7 +1010,7 @@ var (
 func init() { proto.RegisterFile("atTimestamps.proto", fileDescriptorAtTimestamps) }
 
 var fileDescriptorAtTimestamps = []byte{
-	// 275 bytes of a gzipped FileDescriptorProto
+	// 305 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4a, 0x2c, 0x09, 0xc9,
 	0xcc, 0x4d, 0x2d, 0x2e, 0x49, 0xcc, 0x2d, 0x28, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12,
 	0x4d, 0x4e, 0xcc, 0x4b, 0x2c, 0xaa, 0xcc, 0x48, 0x4d, 0xcc, 0x29, 0xc9, 0x80, 0x88, 0x25, 0x95,
@@ -729,8 +1025,10 @@ var fileDescriptorAtTimestamps = []byte{
 	0x71, 0x39, 0x16, 0x25, 0x67, 0x64, 0x96, 0x81, 0x6d, 0x08, 0xe5, 0xe2, 0x4e, 0x84, 0xf2, 0x88,
 	0xb3, 0x42, 0xe2, 0xd3, 0x3d, 0x79, 0x01, 0x90, 0x15, 0x48, 0xda, 0x20, 0x76, 0x70, 0x25, 0xc2,
 	0x8d, 0x05, 0xf9, 0xc2, 0x25, 0x35, 0x27, 0x15, 0xee, 0x8b, 0x14, 0x08, 0x87, 0x44, 0x5f, 0x20,
-	0x74, 0x41, 0x7d, 0x91, 0x02, 0x33, 0xd3, 0x49, 0xfc, 0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4,
-	0x18, 0x1f, 0x3c, 0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e, 0x21, 0x8a, 0xb5, 0xa4, 0xb2, 0x20, 0xb5,
-	0x38, 0x89, 0x0d, 0x6c, 0xa0, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xf7, 0x1b, 0x7e, 0xc3, 0x24,
-	0x02, 0x00, 0x00,
+	0x74, 0x41, 0x7d, 0x91, 0x02, 0x33, 0x53, 0xe9, 0x3e, 0x13, 0x17, 0x17, 0x22, 0x0d, 0xd0, 0x22,
+	0x26, 0xd0, 0x02, 0x9f, 0x89, 0x1a, 0x81, 0x8f, 0x1e, 0xdc, 0xcc, 0xd4, 0x09, 0x6e, 0xb4, 0x10,
+	0x66, 0xa1, 0x46, 0x08, 0x3b, 0x89, 0x9f, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83,
+	0x47, 0x72, 0x8c, 0x13, 0x1e, 0xcb, 0x31, 0x44, 0xb1, 0x96, 0x54, 0x16, 0xa4, 0x16, 0x27, 0xb1,
+	0x81, 0x0d, 0x34, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0xf8, 0xae, 0xff, 0x61, 0x86, 0x03, 0x00,
+	0x00,
 }
