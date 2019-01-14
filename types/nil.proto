@@ -15,7 +15,9 @@ option (gogoproto.sizer_all) = true;
 // A generic empty message that you can re-use to avoid defining duplicated
 // empty messages in your APIs. A typical example is to use it as the request
 // or the response type of an API method. For instance:
-//
+//     
+//     import "github.com/canary-health/protobuf/types/nil.proto";
+//     
 //     service Foo {
 //       rpc Bar(canaryhealth.protobuf.Nil) returns (canaryhealth.protobuf.Nil);
 //     }
